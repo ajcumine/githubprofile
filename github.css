@@ -1,3 +1,70 @@
-*{
-  width: 100%;
+body {
+  font-family: Helvetica;
+}
+
+header {
+  background-color: black;
+  color: white;
+  border-bottom: solid blue 2px;
+  padding: 20px;
+}
+
+img {
+  height: 150px;
+  width: 150px;
+  padding: 5px;
+}
+
+a {
+  text-decoration: none;
+  color: green;
+}
+
+.profile-container {
+  margin-left: 20px;
+  background-color: yellow;
+  padding: 10px;
+  width: 60%;
+}
+
+.profile {
+  background-color: red;
+  margin: 5px;
+  width: 80%;
+  transition: all 1s;
+  color: black;
+}
+
+.profile:hover {
+  margin-left: 100px;
+}
+
+#add_profile {
+  margin: 20px;
+}
+
+#username {
+  width: 400px;
+}
+
+button {
+  background-color: orange;
+  border: solid black 2px;
+  border-radius: 4px;
+}
+
+template {
+  display: none;
+}
+
+.profile .left {
+  width: 20%;
+  float: left;
+}
+
+.profile .right {
+  width: 80%;
+  float: left;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
