@@ -1,0 +1,72 @@
+<html>
+<head>
+  <title>Github Profiles</title>
+  <link href='reset.css' rel='stylesheet'>
+  <link href='github.css' rel='stylesheet'>
+  <link href='http://fonts.googleapis.com/css?family=Titillium+Web' rel='stylesheet' type='text/css'>
+  <meta charset='utf-8'>
+</head>
+<header>
+  <h1>GITHUB PROFILE SEARCH</h1>
+</header>
+<body>
+  <form id='add_profile'>
+    <input id='username' autocomplete='off' autocorrect='off' spellcheck='false' placeholder='Enter a Github username'>
+    <button type='submit'>load profile</button>
+  </form>
+  <div class='profile-container'>
+    <template id='profile-template'>
+      <div class='profile'>
+        <div class='left'>
+          <img src="{{ avatar_url }}">
+        </div>
+        <div class='right'>
+          <h3>
+            <a href="{{ html_url }}">{{ login }}</a>
+          </h3>
+          <h4>following: {{ following }}</h4>
+          <h4>followers: {{ followers }}</h4>
+          <h5>
+            <a class='close' href='#'>remove[✖]</a>
+          </h5>
+        </div>
+        <br clear='all'>
+      </div>
+    </template>
+  </div>
+  <script src='https://code.jquery.com/jquery-2.1.0.min.js'></script>
+  <script src='mustache.js'></script>
+  <script>
+
+    function addProfileFromUsername(usernameEntered) {
+      $.get("https://api.github.com/users/" + usernameEntered, function(user){
+        var newProfile = Mustache.render($('#profile-template').html(), user);
+          $(newProfile).prependTo('.profile-container').hide().slideDown();
+        }).fail(function(){
+          alert("We could not fetch the user's data.");
+        }).always(function(){
+          $('#username').val('');
+        })
+    }
+
+    $(document).ready(function(){
+      var usernames = ['alexmakers', 'tiffaniechia', 'lycanstrife', 'ajcumine'];
+      usernames.forEach(function(usernames){
+        addProfileFromUsername(usernames);
+      })
+
+      $('.profile-container').on('click', '.close', function(){
+        $(this).closest('.profile').fadeOut(function(){
+          $(this).remove();
+        });
+      })
+
+      $('#add_profile').on('submit', function(event){
+        event.preventDefault();
+        var usernameEntered = $('#username').val();
+        addProfileFromUsername(usernameEntered);
+      })
+    })
+  </script>
+</body>  
+</html>
